@@ -11,6 +11,6 @@ def sat_vap_pres(tc):
 
 def rel_hum(tc, tcd):
     e = 6.11*10.0**(7.5*tdc/(237.7+tdc))
-    es = return(6.11*10.0**(7.5*tc/(237.7+tc)))
+    es = (6.11*10.0**(7.5*tc/(237.7+tc)))
     return(100.0*e/es)
 
