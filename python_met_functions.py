@@ -11,3 +11,5 @@ def rel_hum(tc, tdc):
     es = (6.11*10.0**(7.5*tc/(237.7+tc)))
     return(100.0*e/es)
 
+def vpd(ea,es):
+    return (ea - es)
