@@ -1,10 +1,10 @@
 import numpy
 
 def f_to_c(tf):
-    return(5.0/9.0*(tf-32)) 
+    return(5.0/9.0*(tf-32))
 #tc: temp in celsius
 def sat_vap_pres(tc):
-    return(0.611*numpy.exp((17.27*tc/(237.3+tc))))
+    return(10.0*0.611*numpy.power(10,((7.5*tc)/(237.3+tc))))
 
 # tdc: dewpoint temp in celsius tc: temp in celsius
 def rel_hum(tc, tdc):
