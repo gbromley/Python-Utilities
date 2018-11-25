@@ -5,6 +5,7 @@ def f_to_c(tf):
 #tc: temp in celsius
 def sat_vap_pres(tc):
     return(10.0*0.611*numpy.power(10,((7.5*tc)/(237.3+tc))))
+    #The 10.0 converts to hPa
 
 # tdc: dewpoint temp in celsius tc: temp in celsius
 def rel_hum(tc, tdc):
