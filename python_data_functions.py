@@ -1,5 +1,11 @@
 # grabs the specified months similar to JJA type seasonal extractors in xarray
 #
+import statsmodels.api as sm
+import numpy as np
+import xarray as xr
+
+
+
 def extract_months(month, start, end):
     return (month >= start) & (month <= end)
 
@@ -65,3 +71,36 @@ def mk_test(x, alpha = 0.05):
         trend = 'no trend'
 
     return trend, h, p, z
+
+
+def ufunc_calc_trends(time_series):
+    #create the y intercept for the ols
+    index_array = np.arange(0,len(time_series),1)
+    index = sm.add_constant(index_array)
+
+    #create the model
+    model = sm.OLS(time_series,index)
+    results = model.fit()
+    #return the slope
+    slope = results.params[1]
+    return slope
+
+def nc_trend_calc(da):
+    # takes calc trend function and applies it over lat lon
+    # key is that input_core_dims = 'time' and vectorize = true
+    result = xr.apply_ufunc(ufunc_calc_trends, da,
+                            input_core_dims=[['year']],
+                            dask='parallelized',
+                            vectorize=True)
+    return result
+def ddate_to_datetime(time):
+    #taking decimal year (2017.08333) to normal datetime
+    # stupid berkley data
+    time = time - 1970
+    year = time.astype(int)
+
+    rem = time - year
+    base = year.astype('datetime64[Y]')
+    result = base + np.timedelta64(365,'D')*rem
+
+    return result
