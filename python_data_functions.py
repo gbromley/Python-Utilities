@@ -82,8 +82,8 @@ def ufunc_calc_trends(time_series):
     model = sm.OLS(time_series,index)
     results = model.fit()
     #return the slope
-    slope = results.params[1] * 10.0
-    return slope
+    slope = results.params[1]
+    return slope * 10.0
 
 def nc_trend_calc(da):
     # takes calc trend function and applies it over lat lon
