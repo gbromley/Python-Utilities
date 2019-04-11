@@ -49,7 +49,7 @@ def get_sfc_era5(date=None, time_val=None):
 
 if __name__ == '__main__':
 
-    scratch_dir = '/Users/gbromley/data'
+    scratch_dir = '/Users/gbromley/data/'
 
     start_year = int(sys.argv[1])
     end_year = int(sys.argv[2])
