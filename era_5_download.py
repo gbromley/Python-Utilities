@@ -36,7 +36,6 @@ def get_sfc_era5(date=None, time_val=None):
             'class': 'ea',
             'date': date,
             'expver': '1',
-            'levelist': '1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19/20/21/22/23/24/25/26/27/28/29/30/31/32/33/34/35/36/37/38/39/40/41/42/43/44/45/46/47/48/49/50/51/52/53/54/55/56/57/58/59/60/61/62/63/64/65/66/67/68/69/70/71/72/73/74/75/76/77/78/79/80/81/82/83/84/85/86/87/88/89/90/91/92/93/94/95/96/97/98/99/100/101/102/103/104/105/106/107/108/109/110/111/112/113/114/115/116/117/118/119/120/121/122/123/124/125/126/127/128/129/130/131/132/133/134/135/136/137',
             'levtype': 'sfc',
             'param': '31.128/32.128/33.128/34.128/39.128/40.128/41.128/42.128/134.128/139.128/141.128/151.128/165.128/166.128/167.128/168.128/170.128/172.128/183.128/235.128/236.128',
             'stream': 'oper',
@@ -49,7 +48,7 @@ def get_sfc_era5(date=None, time_val=None):
 
 if __name__ == '__main__':
 
-    scratch_dir = '/Users/gbromley/data/'
+    scratch_dir = '/glade/scratch/gbromley/'
 
     start_year = int(sys.argv[1])
     end_year = int(sys.argv[2])
@@ -83,7 +82,7 @@ if __name__ == '__main__':
         for month in np.arange(0, 12, 1):
             for day in np.arange(0, num_days_month[month], 1):
                 for time in np.arange(0, num_times, 1):
-                    date = str(start_year + year) + months[month] + days[day]
+                    date = str(start_year + year) + '-' + months[month] + '-' + days[day]
                     e5_time = times_utc[time]
                     pool.apply_async(get_ml_era5, args=(date, e5_time))
                     pool.apply_async(get_sfc_era5, args=(date, e5_time))
