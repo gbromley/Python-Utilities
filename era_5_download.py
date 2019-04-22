@@ -1,11 +1,34 @@
 import cdsapi
-import pandas as pd
 import numpy as np
 import multiprocessing as mp
 import time
 import sys
 import os
 
+
+def get_era5_test(date=None, time_val=None):
+    output_filename = 'era5.test.pl' + '.' + str(date) + str(time_val)
+    year_val = str(date)[0:4]
+    month_val = str(date)[5:7]
+    day_val = str(date)[8:10]
+    print(year_val)
+    print(month_val)
+    print(day_val)
+    print(time_val)
+    try:
+        c = cdsapi.Client()
+        c.retrieve('reanalysis-era5-pressure-levels', {
+            'variable': 'temperature',
+            'pressure_level': '1000',
+            'product_type': 'reanalysis',
+            'year': year_val,
+            'month': month_val,
+            'day': day_val,
+            'time': str(time_val) + ':00',
+            'format': 'grib'  # Supported format: grib and netcdf. Default: grib
+        }, output_filename)
+    except Exception as e:
+        print("Something went wrong with API call")
 
 def get_ml_era5(date=None, time_val=None):
     output_filename = 'ea.oper.an.ml.' + str(date) + str(time_val)
@@ -49,6 +72,7 @@ def get_sfc_era5(date=None, time_val=None):
 if __name__ == '__main__':
 
     scratch_dir = '/glade/scratch/gbromley/'
+    # scratch_dir = '/Users/gbromley/data/era5_test/'
 
     start_year = int(sys.argv[1])
     end_year = int(sys.argv[2])
@@ -84,8 +108,11 @@ if __name__ == '__main__':
                 for time in np.arange(0, num_times, 1):
                     date = str(start_year + year) + '-' + months[month] + '-' + days[day]
                     e5_time = times_utc[time]
-                    pool.apply_async(get_ml_era5, args=(date, e5_time))
-                    pool.apply_async(get_sfc_era5, args=(date, e5_time))
+                    print(e5_time)
+                    pool.apply_async(get_era5_test, args=(date, e5_time))
+                    # pool.apply_async(get_ml_era5, args=(date, e5_time))
+                    # pool.apply_async(get_sfc_era5, args=(date, e5_time))
+                    break
 
     pool.close()
     pool.join()
