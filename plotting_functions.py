@@ -1,11 +1,9 @@
 '''
 Script that helps with plotting lat/lon on lambert conformal
 Not my own work, found on github
-''''''
+'''
 
 from copy import copy
-
-%matplotlib inline
 import cartopy.crs as ccrs
 from cartopy.mpl.gridliner import LATITUDE_FORMATTER, LONGITUDE_FORMATTER
 import matplotlib.pyplot as plt
