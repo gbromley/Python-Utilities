@@ -24,4 +24,10 @@ def mixing_ratio(VaporPressure, Pressure):
         return MixRatio
     except Error as e:
         print('Invalid input data')
-        
+
+
+def vap_pres(td):
+    try:
+        return (10.0 * 0.611 * numpy.power(10, ((7.5 * td) / (237.3 + td))))
+    except:
+        print('Invalid input data')
