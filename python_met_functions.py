@@ -24,4 +24,4 @@ def mixing_ratio(VaporPressure, Pressure):
         return MixRatio
     except Error as e:
         print('Invalid input data')
-        break
+        
