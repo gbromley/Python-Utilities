@@ -16,3 +16,12 @@ def rel_hum(tc, tdc):
 # ea: vapor pressure es: sat. vapor pressure
 def vpd(ea,es):
     return (ea - es)
+
+
+def mixing_ratio(VaporPressure, Pressure):
+    try:
+        MixRatio = (VaporPressure * 0.622) / (Pressure - VaporPressure)
+        return MixRatio
+    except Error as e:
+        print('Invalid input data')
+        break
